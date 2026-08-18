@@ -1,0 +1,21 @@
+{
+  "name": "my-youtube",
+  "version": "1.0.0",
+  "description": "This is brain of my youtube ",
+  "license": "ISC",
+  "author": "Roshan Kumar",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.9.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
