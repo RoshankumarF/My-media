@@ -17,6 +17,11 @@
 # Local configuration that shouldn't be shared
 *.local
 
+full stack docs.md
+
+.prettierrc
+.pritterignore
+
 ### Node ###
 # Node.js dependency directory, logs, and environment files
 
