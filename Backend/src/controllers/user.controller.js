@@ -15,6 +15,7 @@ const generateAccessAndRefreshToken=async(userId)=>{
         user.refreshToken=refreshToken
 
         await user.save({validateBeforeSave:false})
+        return {accessToken,refreshToken}
         
     } catch (error) {
         console.log(error)
@@ -93,7 +94,7 @@ const loginUser=asyncHandler(async(req,res)=>{
         throw new apiError(400,"user does not exist")
     }
 
-    const isPasswordValid=await User.isPasswordCorrect(password)
+    const isPasswordValid=await user.isPasswordCorrect(password)
 
      if(!isPasswordValid){
         throw new apiError(401,"Password is incorect ,try again ")

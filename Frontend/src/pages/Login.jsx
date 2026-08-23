@@ -2,8 +2,40 @@ import Logo from '../components/Logo';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Footer from '../components/Footer/Footer';
-
+import {useNavigate} from 'react-router-dom'
+import {api} from "../api.js"
+import { useState } from 'react';
 export default function Login() {
+  const navigate=useNavigate()
+
+  const [isLoading,setLoading]=useState(false)
+
+  const handleSubmit =async (e)=>{
+    e.preventDefault();
+
+  const formData= new FormData(e.currentTarget)
+
+  const loginCredentials =Object.fromEntries(formData)
+  try {
+    setLoading(true)
+    const response = await api.post("/v1/user/login",loginCredentials)
+
+    console.log("login successfull",response.data)
+    navigate('/');
+    
+  } catch (error) {
+    if(error.response){
+      console.log("Login failed",error.response.data);
+      alert(error.response.data.message|| "invalid email or password")
+    }else{
+      console.log("Network error",error.message)
+      alert("could not connect to the server")
+    }
+    
+  }finally{
+    setLoading(false);
+  }
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       
@@ -19,22 +51,25 @@ export default function Login() {
           <p className="text-center text-gray-500 text-sm mb-8">Sign in to continue to MyMedia</p>
 
           {/* Form */}
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
               <Input 
               label="username" 
+              name="username"
               type="text" 
               placeholder="username" 
               required 
             />
             <Input 
               label="Email Address" 
-              type="email" 
+              type="email"
+              name="email" 
               placeholder="you@example.com" 
               required 
             />
             <Input 
               label="Password" 
               type="password" 
+              name="password"
               placeholder="••••••••" 
               required 
             />
@@ -46,8 +81,9 @@ export default function Login() {
             </div>
 
             {/* Reusable Button! */}
-            <Button type="submit" variant="primary" className="w-full">
-              Sign In
+            <Button type="submit" variant="primary" className="w-full" isloading={isLoading}>
+              {isLoading ? "Signing... ": "Sign in"}
+              
             </Button>
           </form>
 
