@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer';
 import {useNavigate} from 'react-router-dom'
 import {api} from "../api.js"
 import { useState } from 'react';
-export default function Login() {
+export default function Login({setIsLoggedIn}) {
   const navigate=useNavigate()
 
   const [isLoading,setLoading]=useState(false)
@@ -19,6 +19,10 @@ export default function Login() {
   try {
     setLoading(true)
     const response = await api.post("/v1/user/login",loginCredentials)
+
+    localStorage.setItem('accessToken',response.data.token)
+
+    setIsLoggedIn(true);
 
     console.log("login successfull",response.data)
     navigate('/');

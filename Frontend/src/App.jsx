@@ -8,8 +8,22 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import './App.css'
+import { useEffect } from 'react';
 
 function App() {
+
+  const [isLoggedIn ,setIsLoggedIn]=useState(false)
+
+  useEffect(()=>{
+    const token=localStorage.getItem('accessToken')
+
+    if(token){
+      setIsLoggedIn(true)
+
+    }else{
+      setIsLoggedIn(false);
+    }
+  },[])
  
 
    
@@ -20,10 +34,10 @@ function App() {
       <Routes>
         
         {/* The main feed */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         
         {/* The auth pages */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         
       </Routes>
