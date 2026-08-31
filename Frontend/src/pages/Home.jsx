@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Button from '../components/Button';
 
-export default function Home({isLoggedIn,setIsLoggedIn}) {
+export default function Home({isLoggedIn,setIsLoggedIn,user}) {
   const [feedType, setFeedType] = useState('all'); 
   
-  // Teammate Note: For now, we are hardcoding this to true so you can see the logged-in view.
-  // Later, you will set this based on whether a token exists in localStorage!
+ 
    
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       
       {/* Pass the auth state to the Header */}
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user} />
       
       <div className="flex flex-1 overflow-hidden max-w-[1600px] mx-auto w-full">
         

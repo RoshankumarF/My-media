@@ -81,6 +81,7 @@ const registerUser=asyncHandler(async (req ,res)=>{
 
 const loginUser=asyncHandler(async(req,res)=>{
     const {email,username,password}=req.body
+    console.log("i m in loginn")
 
     if(!(username||email)){
         throw new apiError(400,"username or email is required")
@@ -149,8 +150,24 @@ const logoutUser= asyncHandler(async (req,res)=>{
     
 })
 
+const getCurrentUser=asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user._id).select("-password");
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        
+     
+        res.status(200).json({ 
+            message: "User fetched successfully", 
+            data: user 
+        });
+    
+})
+
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    getCurrentUser
 }

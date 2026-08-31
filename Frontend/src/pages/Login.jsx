@@ -20,7 +20,7 @@ export default function Login({setIsLoggedIn}) {
     setLoading(true)
     const response = await api.post("/v1/user/login",loginCredentials)
 
-    localStorage.setItem('accessToken',response.data.token)
+     
 
     setIsLoggedIn(true);
 

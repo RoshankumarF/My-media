@@ -34,9 +34,11 @@ app.use(cookieParser())
 // import router
 
 import userRouter from "./routes/user.route.js"
+import videoRouter from "./routes/video.route.js"
 
 //route declaration 
-
+console.log("i m in app.js near user")
 app.use("/api/v1/user",userRouter)
+app.use("api/v1/video",videoRouter)
 
 export default app
