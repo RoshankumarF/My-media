@@ -4,7 +4,9 @@ import {apiResponse} from "../utils/apiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 
-const publishVideo=asyncHandler(async (requestAnimationFrame,res)=>{
+const publishVideo=asyncHandler(async (req,res)=>{
+
+   
     const {title,description}=req.body
     if(!title){
         throw new apiError(404,"title is required")
@@ -56,6 +58,34 @@ const publishVideo=asyncHandler(async (requestAnimationFrame,res)=>{
     
 })
 
+const getAllVideos=asyncHandler(async (req,res)=>{
+const {query}=req.query
+
+const filter ={
+     isPublished :true
+}
+
+if(query){
+    filter.title={
+        $regex :query,
+        $options :"i"
+    }
+}
+
+const videos= await Video.find({filter}).populate("owner","username avatar")
+.sort({createdAt :-1});
+
+if(!videos){
+    return res.status(400).json(new apiResponse(400,{},"No video found"))
+}else{
+    return res.status(200).json(
+        new ApiResponse(200, videos, "Videos fetched successfully")
+    );
+}
+
+})
+
 export {
-    publishVideo
+    publishVideo,
+    getAllVideos
 }

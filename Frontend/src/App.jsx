@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import './App.css'
 import { useEffect } from 'react';
 import { api } from './api';
+import UploadVideo from './pages/Uploadvideo';
 
 function App() {
 
@@ -19,17 +20,17 @@ function App() {
   useEffect(()=>{
      const Checkauth=async()=>{
       try {
-      const response=   await api.get("v1/user/current-user");
-         setIsLoggedIn(true)
+      const response=   await api.get("/v1/user/current-user");
+        setIsLoggedIn(true)
 
          setUser(response.data.data)
-      } catch (error) {
-        setIsLoggedIn(false)
-        setUser(null)
-        console.log(error)
-      }
+     } catch (error) {
+       setIsLoggedIn(false)
+       setUser(null)
+       console.log("i m authcheck error ",error)
      }
-     Checkauth();
+     }
+    Checkauth();
 
   },[])
  
@@ -47,6 +48,7 @@ function App() {
         {/* The auth pages */}
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="upload" element ={<UploadVideo/>}/>
         
       </Routes>
     </BrowserRouter>

@@ -1,10 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';  
 import Header from '../components/Header';
 import Button from '../components/Button';
+import { api } from '../api';
 
 export default function Home({isLoggedIn,setIsLoggedIn,user}) {
   const [feedType, setFeedType] = useState('all'); 
+
+  const [videos,setVideos]=useState([])
+  const [searchQuery, setSearchQuery] = useState("");
+
+useEffect(  ()=>{
+
+  const getVideos= async ()=>{
+    const response= await api.get("/v1/video/all-videos",{
+    params :{
+      query :searchQuery
+    }
+  })
+  setVideos(response.data)  
+
+  }
+  getVideos();
+   
+},[searchQuery])
   
  
    
@@ -46,6 +65,7 @@ export default function Home({isLoggedIn,setIsLoggedIn,user}) {
         <main className="flex-1 overflow-y-auto">
           {/* ... Your feed code from the previous step goes here ... */}
           <div className="p-8 text-center text-gray-500">Main Feed Area</div>
+           
         </main>
 
         {/* RIGHT PANEL (Trends) */}

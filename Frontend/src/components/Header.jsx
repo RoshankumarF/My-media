@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 import Button from './Button';
 import { api } from '../api';
 
-export default function Header({ isLoggedIn ,setIsLoggedIn }) {
+export default function Header({ isLoggedIn ,setIsLoggedIn ,user }) {
  
+  const navigate = useNavigate()
 
  
   const handleLogout = async  () => {
@@ -52,21 +53,21 @@ export default function Header({ isLoggedIn ,setIsLoggedIn }) {
             {/* User Profile Avatar */}
             <Link to="/profile">
 
-            {user?.avatar?(<img src={user.avatar}
+            {user?.avatar ?  (<img src={user.avatar}
             alt="profile"
             className="w-9 h-9 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-offset-2 hover:ring-blue-500 transition-all"
-            />
+            /> )
             
-          ):(
-            <div className="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold cursor-pointer">
+          :
+           ( <div className="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold cursor-pointer">
                    
                   {user?.username?.charAt(0).toUpperCase() || "U"}
-                </div>
+                </div> )
 
-          )}
-              <div className="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold cursor-pointer hover:ring-2 hover:ring-offset-2 hover:ring-blue-500 transition-all">
+          }
+             {/* <div className="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold cursor-pointer hover:ring-2 hover:ring-offset-2 hover:ring-blue-500 transition-all">
                 U
-              </div>
+              </div>*/}
             </Link>
             <button 
               onClick={handleLogout}
