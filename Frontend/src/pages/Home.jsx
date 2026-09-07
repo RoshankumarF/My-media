@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { api } from '../api';
+import Videocard from "../components/Videocard"
 
 export default function Home({isLoggedIn,setIsLoggedIn,user}) {
   const [feedType, setFeedType] = useState('all'); 
@@ -13,12 +14,22 @@ export default function Home({isLoggedIn,setIsLoggedIn,user}) {
 useEffect(  ()=>{
 
   const getVideos= async ()=>{
-    const response= await api.get("/v1/video/all-videos",{
-    params :{
-      query :searchQuery
+
+    try {
+      
+      const response= await api.get("/v1/video/all-videos",{
+      params :{
+        query :searchQuery
+      }
+    })
+ 
+     
+    setVideos(response.data.data)  
+    } catch (error) {
+      console.log(error.message)
+      alert("videos fetching failed")
+      
     }
-  })
-  setVideos(response.data)  
 
   }
   getVideos();
@@ -65,7 +76,12 @@ useEffect(  ()=>{
         <main className="flex-1 overflow-y-auto">
           {/* ... Your feed code from the previous step goes here ... */}
           <div className="p-8 text-center text-gray-500">Main Feed Area</div>
-           
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+           {videos.map((video)=>(
+             <Videocard key={video._id} video={video}/>
+
+           ))}
+           </div>
         </main>
 
         {/* RIGHT PANEL (Trends) */}

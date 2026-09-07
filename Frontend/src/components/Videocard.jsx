@@ -1,7 +1,10 @@
  
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function VideoCard({ video }) {
+function Videocard({ video }) {
+
+    const navigate=useNavigate()
 
     // Convert seconds into HH:MM:SS or MM:SS
     const formatDuration = (seconds) => {
@@ -58,7 +61,11 @@ function VideoCard({ video }) {
     };
 
     return (
-        <article className="group cursor-pointer">
+        <article
+         className="group cursor-pointer"
+        onClick={()=>navigate(`/watch/${video._id}`)}
+        
+        >
 
             {/* Thumbnail */}
             <div className="relative w-full aspect-video overflow-hidden rounded-xl bg-gray-200">
@@ -99,7 +106,7 @@ function VideoCard({ video }) {
             <div className="mt-3 flex gap-3">
 
                 {/* Owner Avatar */}
-                <div className="flex-shrink-0-7">
+                <div className="flex-shrink-0-">
 
                     {video.owner?.avatar ? (
                         <img
@@ -172,5 +179,5 @@ function VideoCard({ video }) {
     );
 }
 
-export default VideoCard;
+export default Videocard;
  

@@ -11,6 +11,7 @@ import './App.css'
 import { useEffect } from 'react';
 import { api } from './api';
 import UploadVideo from './pages/Uploadvideo';
+import WatchVideo from './pages/WatchVideo';
 
 function App() {
 
@@ -48,7 +49,9 @@ function App() {
         {/* The auth pages */}
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="upload" element ={<UploadVideo/>}/>
+        <Route path="/upload" element ={<UploadVideo/>}/>
+
+        <Route path="/watch/:videoId" element={<WatchVideo  isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user}/>}/>
         
       </Routes>
     </BrowserRouter>

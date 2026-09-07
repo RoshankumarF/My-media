@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Video } from "../models/video.model.js";
 import {apiError} from "../utils/apiError.js"
 import {apiResponse} from "../utils/apiResponse.js"
@@ -72,20 +73,42 @@ if(query){
     }
 }
 
-const videos= await Video.find({filter}).populate("owner","username avatar")
+const videos= await Video.find(filter).populate("owner","username avatar")
 .sort({createdAt :-1});
 
-if(!videos){
+if(videos.length===0){
     return res.status(400).json(new apiResponse(400,{},"No video found"))
 }else{
+    
     return res.status(200).json(
-        new ApiResponse(200, videos, "Videos fetched successfully")
+         
+        new apiResponse(200, videos, "Videos fetched successfully")
     );
 }
 
 })
 
+const getVideoByid = asyncHandler(async(req,res)=>{
+    const {videoId}=req.params;
+    if(!mongoose.Types.ObjectId.isValid(videoId)){
+        throw new apiError(400,"Videoid is invalid")
+    }
+
+    const video =await Video.findById(videoId).populate("owner" ,"username avatar")
+
+     if (!video) {
+        return res.status(404).json(
+            new apiResponse(404, {}, "Video not found")
+        );
+    }
+
+    return res.status(200).json(
+        new apiResponse(200, video, "Video fetched successfully")
+    );
+})
+
 export {
     publishVideo,
-    getAllVideos
+    getAllVideos,
+    getVideoByid
 }
