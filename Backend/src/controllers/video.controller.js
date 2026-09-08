@@ -107,8 +107,37 @@ const getVideoByid = asyncHandler(async(req,res)=>{
     );
 })
 
+const incviews=asyncHandler(async(req,res)=>{
+    const {videoId}=req.params
+
+    const video = await Video.findByIdAndUpdate(
+        videoId,
+        {
+            $inc: {
+                views: 1
+            }
+        },
+        {
+            new: true
+        }
+    );
+
+    if (!video) {
+        return res.status(404).json(
+            new apiResponse(404, {}, "Video not found")
+        );
+    }
+
+    return res.status(200).json(
+        new apiResponse(200, video, "View counted")
+    );
+
+
+})
+
 export {
     publishVideo,
     getAllVideos,
-    getVideoByid
+    getVideoByid,
+    incviews
 }

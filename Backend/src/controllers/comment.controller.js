@@ -3,7 +3,7 @@ import {apiResponse} from "../utils/apiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 import {User} from "../models/user.model.js"
 import {Video} from "../models/video.model.js"
-import mongoose, { mongo } from "mongoose"
+import mongoose  from "mongoose"
 import { Comment } from "../models/comment.model.js"
 
 const addComment =asyncHandler(async(req,res)=>{

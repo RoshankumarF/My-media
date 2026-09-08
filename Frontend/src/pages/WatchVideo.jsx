@@ -10,6 +10,8 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     const { videoId } = useParams();
 
     const [video, setVideo] = useState(null);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         const getVideo = async () => {
@@ -26,9 +28,77 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
         getVideo();
     }, [videoId]);
 
+    
+    useEffect(()=>{
+       const increaseView = async () => {
+        try {
+            await api.post(`/v1/video/view/${videoId}`);
+        } catch (error) {
+            console.log("Failed to increase view:", error);
+        }
+    };
+
+    if (videoId) {
+        increaseView();
+    }
+    },[videoId])
+
+
+    useEffect(() => {
+    const checkSubscription = async () => {
+        if (!user || !video?.owner?._id) return;
+
+        try {
+            const response = await api.get(
+                `/v1/subscription/check-subscription/${video.owner._id}`
+            );
+
+            setIsSubscribed(response.data.data.isSubscribed);
+        } catch (error) {
+            console.error("Failed to check subscription:", error);
+        }
+    };
+
+    checkSubscription();
+}, [user, video]);
+
     if (!video) {
         return <div>Loading...</div>;
     }
+
+
+ 
+
+
+ 
+   
+
+   //The Subscribe Function
+  const handleSubscribe = async () => {
+    
+    if (!user) {
+      alert("Please log in to subscribe to channels!");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+       
+      const response = await api.post(
+        `/v1/subscription/toggle-subscription/${video.owner._id}`
+         
+      );
+
+      // 3. Update the button instantly based on backend response!
+      setIsSubscribed(response.data.data.isSubscribed);
+      
+    } catch (error) {
+      console.error("Subscription failed:", error);
+      alert("Could not update subscription.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
     return (
        <div className="min-h-screen flex flex-col bg-gray-50">
@@ -76,7 +146,14 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     {/* Optional: If your backend returns subscriber count, put it here */}
   </div>
   
-  <Button variant="primary" className="ml-2 py-1.5 px-4 text-sm">Subscribe</Button>
+  <Button 
+        variant={isSubscribed ? "secondary" : "primary"} 
+        className="ml-2 py-1.5 px-4 text-sm transition-all"
+        onClick={handleSubscribe}
+        disabled={isSubmitting}
+      >
+        {isSubscribed ? "Subscribed" : "Subscribe"}
+      </Button>
 </div>
 
               <div className="flex items-center gap-2">
@@ -95,6 +172,8 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
             <p className="font-semibold mb-2">{video.views} views</p>
             <p className="whitespace-pre-wrap">{video.description}</p>
           </div>
+
+           
           
           {/* Comments section hidden for brevity... */}
           <div className="mt-8 border-t border-gray-200 pt-6">
