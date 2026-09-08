@@ -4,6 +4,7 @@ import {api} from "../api";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import CommentSection from "../components/CommentSection";
 
 function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     const { videoId } = useParams();
@@ -48,24 +49,35 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
               className="w-full h-full object-contain"
             />
           </div>
+          
 
           {/* 2. Real Video Data */}
           <div>
             <h1 className="text-xl font-bold text-gray-900 mb-2">{video.title}</h1>
             
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                  {/* Assuming owner is populated with username */}
-                  {video.owner?.username?.charAt(0).toUpperCase() || "C"}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 leading-tight">
-                    {video.owner?.username || "Channel Name"}
-                  </h3>
-                </div>
-                <Button variant="primary" className="ml-2 py-1.5 px-4 text-sm">Subscribe</Button>
-              </div>
+             <div className="flex items-center gap-3">
+  {video.owner?.avatar ? (
+    <img 
+      src={video.owner.avatar} 
+      alt={video.owner.username} 
+      className="w-10 h-10 rounded-full object-cover shadow-sm"
+    />
+  ) : (
+    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-sm">
+      {video.owner?.username?.charAt(0).toUpperCase() || "U"}
+    </div>
+  )}
+  
+  <div>
+    <h3 className="font-semibold text-gray-900 leading-tight">
+      {video.owner?.username || "Unknown Creator"}
+    </h3>
+    {/* Optional: If your backend returns subscriber count, put it here */}
+  </div>
+  
+  <Button variant="primary" className="ml-2 py-1.5 px-4 text-sm">Subscribe</Button>
+</div>
 
               <div className="flex items-center gap-2">
                 <Button variant="secondary" className="flex items-center gap-2 text-sm py-1.5">
@@ -85,6 +97,9 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
           </div>
           
           {/* Comments section hidden for brevity... */}
+          <div className="mt-8 border-t border-gray-200 pt-6">
+            <CommentSection videoId={video._id} user={user} />
+          </div>
         </div>
 
         {/* RIGHT COLUMN: Suggested Videos (Static for now) */}
