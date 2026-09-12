@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { api } from './api';
 import UploadVideo from './pages/Uploadvideo';
 import WatchVideo from './pages/WatchVideo';
+import Profile from './pages/Profile';
 
 function App() {
 
@@ -52,6 +53,8 @@ function App() {
         <Route path="/upload" element ={<UploadVideo/>}/>
 
         <Route path="/watch/:videoId" element={<WatchVideo  isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user}/>}/>
+
+        <Route path="/profile/:userId" element={<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user}/>} />
         
       </Routes>
     </BrowserRouter>

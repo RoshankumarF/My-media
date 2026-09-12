@@ -58,8 +58,30 @@ const checkSubscription = asyncHandler(async (req, res) => {
     );
 });
 
+const getSubscriberCount = asyncHandler(async (req, res) => {
+    const { channelId } = req.params;
+     
+
+    if (!mongoose.Types.ObjectId.isValid(channelId)) {
+        throw new apiError(400, "Invalid channel id");
+    }
+
+    const count = await Subscription.countDocuments({
+        channel: channelId
+    });
+
+    return res.status(200).json(
+        new apiResponse(
+            200,
+            { subscriberCount: count },
+            "Subscriber count fetched successfully"
+        )
+    );
+});
+
 export {
     toggleSubscription,
-    checkSubscription
+    checkSubscription,
+    getSubscriberCount
 }
  

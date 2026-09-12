@@ -3,6 +3,9 @@ import {apiResponse} from "../utils/apiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
+import mongoose from "mongoose"
+import { Subscription } from "../models/subscription.model.js"
+import {Video} from "../models/video.model.js"
 
 const generateAccessAndRefreshToken=async(userId)=>{
 
@@ -165,9 +168,50 @@ const getCurrentUser=asyncHandler(async(req,res)=>{
     
 })
 
+
+const getUserProfile = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+    
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new apiError(400, "Invalid user id");
+    }
+
+    const user = await User.findById(userId)
+        .select("_id username fullName avatar coverImage");
+
+    if (!user) {
+        throw new apiError(404, "User not found");
+    }
+
+    const subscriberCount = await Subscription.countDocuments({
+        channel: userId
+    });
+
+    const videos = await Video.find({
+        owner: userId,
+        isPublished: true
+    })
+        .sort({ createdAt: -1 })
+        .populate("owner", "username avatar");
+
+    return res.status(200).json(
+        new apiResponse(
+            200,
+            {
+                user,
+                subscriberCount,
+                videos
+            },
+            "Profile fetched successfully"
+        )
+    );
+});
+
 export {
     registerUser,
     loginUser,
     logoutUser,
-    getCurrentUser
+    getCurrentUser,
+    getUserProfile
 }

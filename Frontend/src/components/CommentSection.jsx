@@ -3,6 +3,7 @@ import { api } from '../api';
 import Button from './Button';
 import Input from './Input';
 import FormatTimeAgo from './Timeformat';
+import { Link } from 'react-router-dom';
 
 export default function CommentSection({ videoId, user }) {
   const [comments, setComments] = useState([]);
@@ -81,14 +82,18 @@ export default function CommentSection({ videoId, user }) {
       <div className="space-y-6">
         {comments.map((comment) => (
           <div key={comment._id} className="flex gap-4">
+            <Link to={`/profile/${comment.owner._id}`} className="w-10 h-10 shrink-0"> 
             <div className="w-10 h-10 bg-gray-300 rounded-full shrink-0 overflow-hidden">
                {comment.owner?.avatar && <img src={comment.owner.avatar} alt="avatar" className="w-full h-full object-cover" />}
             </div>
+            </Link>
             <div>
+              <Link to={`/profile/${comment.owner._id}`}> 
               <p className="text-sm font-semibold text-gray-900">
                 {comment.owner?.username || "User"} 
                 <span className="text-xs font-normal text-gray-500 ml-2">{FormatTimeAgo(comment.createdAt)}</span>
               </p>
+              </Link>
               <p className="text-sm mt-1 text-gray-800">{comment.content}</p>
             </div>
           </div>

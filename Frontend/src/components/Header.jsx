@@ -51,7 +51,7 @@ export default function Header({ isLoggedIn ,setIsLoggedIn ,user }) {
             </Link>
             
             {/* User Profile Avatar */}
-            <Link to="/profile">
+            <Link to={`/profile/${user._id}`}>
 
             {user?.avatar ?  (<img src={user.avatar}
             alt="profile"

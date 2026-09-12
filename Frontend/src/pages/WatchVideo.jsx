@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import CommentSection from "../components/CommentSection";
+import { Link } from "react-router-dom";
 
 function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     const { videoId } = useParams();
@@ -12,6 +13,8 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     const [video, setVideo] = useState(null);
     const [isSubscribed, setIsSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [subscriberCount,setSubscriberCount] =useState(0)
 
     useEffect(() => {
         const getVideo = async () => {
@@ -62,6 +65,30 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     checkSubscription();
 }, [user, video]);
 
+
+useEffect(() => {
+    const getSubscriberCount = async () => {
+        if (!video?.owner?._id) return
+
+        try {
+
+    
+
+            const response = await api.get(
+                `/v1/subscription/subscriber-count/${video.owner._id}`
+            )
+
+            setSubscriberCount(
+                response.data.data.subscriberCount
+            )
+        } catch (error) {
+            console.error("Failed to get subscriber count:", error)
+        }
+    };
+
+    getSubscriberCount()
+}, [video])
+
     if (!video) {
         return <div>Loading...</div>;
     }
@@ -109,7 +136,7 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
         {/* LEFT COLUMN */}
         <div className="lg:col-span-2 space-y-4">
           
-          {/* 1. Real HTML5 Video Player */}
+        
           <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-sm">
             <video 
               src={video.videoFile} 
@@ -121,12 +148,13 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
           </div>
           
 
-          {/* 2. Real Video Data */}
+         
           <div>
             <h1 className="text-xl font-bold text-gray-900 mb-2">{video.title}</h1>
             
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
              <div className="flex items-center gap-3">
+    <Link to={`/profile/${video.owner._id}`} className="flex items-center gap-3 cursor-pointer group"> 
   {video.owner?.avatar ? (
     <img 
       src={video.owner.avatar} 
@@ -143,8 +171,17 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     <h3 className="font-semibold text-gray-900 leading-tight">
       {video.owner?.username || "Unknown Creator"}
     </h3>
-    {/* Optional: If your backend returns subscriber count, put it here */}
+
+    <p className="text-xs text-gray-500 mt-0.5">
+      
+       {subscriberCount}  Subscribers
+    </p>
+
+
+   
+   
   </div>
+    </Link>
   
   <Button 
         variant={isSubscribed ? "secondary" : "primary"} 

@@ -56,7 +56,7 @@ useEffect(  ()=>{
             
             {/* Show Profile link in sidebar ONLY if logged in */}
             {isLoggedIn && (
-               <Link to="/profile" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">👤 My Profile</Link>
+               <Link to={`/profile/${user._id}`}className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">👤 My Profile</Link>
             )}
           </nav>
 
