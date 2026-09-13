@@ -8,7 +8,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn, user }) {
    
   const { userId } = useParams();
   
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
