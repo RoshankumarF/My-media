@@ -31,7 +31,7 @@ function App() {
      } catch (error) {
        setIsLoggedIn(false)
        setUser(null)
-       console.log("i m authcheck error ",error)
+        
      }
      }
     Checkauth();

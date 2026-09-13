@@ -13,23 +13,23 @@ export default function Login({setIsLoggedIn}) {
   const handleSubmit =async (e)=>{
     e.preventDefault();
 
-      console.log("🔥 LOGIN BUTTON CLICKED");
+    
 
   const formData= new FormData(e.currentTarget)
 
   const loginCredentials =Object.fromEntries(formData)
   try {
     setLoading(true)
-    console.log("🚀 ABOUT TO SEND LOGIN REQUEST", loginCredentials);
+   
     const response = await api.post("/v1/user/login",loginCredentials)
 
-    console.log("we got the response ",response)
+    
 
      
 
     setIsLoggedIn(true);
 
-    console.log("login successfull",response.data)
+    
     navigate('/');
     
   } catch (error) {
