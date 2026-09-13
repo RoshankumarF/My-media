@@ -50,11 +50,11 @@ export default function Login({setIsLoggedIn}) {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       
-      {/* Main Content Area - Centered Card */}
+   
       <main className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
           
-          {/* Header inside the card */}
+         
           <div className="flex justify-center mb-6">
             <Logo />
           </div>
@@ -91,14 +91,14 @@ export default function Login({setIsLoggedIn}) {
               </a>
             </div>
 
-            {/* Reusable Button! */}
+         
             <Button type="submit" variant="primary" className="w-full" isloading={isLoading}>
               {isLoading ? "Signing... ": "Sign in"}
               
             </Button>
           </form>
 
-          {/* Toggle to Register */}
+          
           <p className="mt-6 text-center text-sm text-gray-600">
             Don't have an account?{' '}
             <a href="/register" className="font-semibold text-blue-600 hover:underline">
@@ -108,7 +108,7 @@ export default function Login({setIsLoggedIn}) {
         </div>
       </main>
 
-      {/* Standard Footer at the bottom */}
+ 
       <Footer />
     </div>
   );

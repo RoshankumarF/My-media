@@ -54,13 +54,12 @@ useEffect(  ()=>{
             <Link to="/videos" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">📺 Videos</Link>
             <Link to="/tweets" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">💬 Tweets</Link>
             
-            {/* Show Profile link in sidebar ONLY if logged in */}
+           
             {isLoggedIn && (
                <Link to={`/profile/${user._id}`}className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">👤 My Profile</Link>
             )}
           </nav>
-
-          {/* THE TWEET BUTTON (Only visible when logged in) */}
+ 
           {isLoggedIn && (
             <div className="p-4 border-t border-gray-200 mt-auto">
               <Link to="/tweets">
@@ -74,7 +73,7 @@ useEffect(  ()=>{
 
         {/* MAIN FEED (Center Column) */}
         <main className="flex-1 overflow-y-auto">
-          {/* ... Your feed code from the previous step goes here ... */}
+        
           <div className="p-8 text-center text-gray-500">Main Feed Area</div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
            {videos.map((video)=>(
@@ -86,7 +85,7 @@ useEffect(  ()=>{
 
         {/* RIGHT PANEL (Trends) */}
         <aside className="w-80 border-l border-gray-200 bg-white hidden lg:block overflow-y-auto p-4 shrink-0">
-           {/* ... Trending topics ... */}
+      
            <div className="p-4 bg-gray-50 rounded-2xl">Trending Topics</div>
         </aside>
 
