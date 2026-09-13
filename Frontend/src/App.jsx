@@ -13,6 +13,8 @@ import { api } from './api';
 import UploadVideo from './pages/Uploadvideo';
 import WatchVideo from './pages/WatchVideo';
 import Profile from './pages/Profile';
+import Tweets from './pages/Tweets';
+import ComposeTweet from './pages/ComposeTweet';
 
 function App() {
 
@@ -46,6 +48,13 @@ function App() {
         
         {/* The main feed */}
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user} />} />
+
+        <Route 
+  path="/tweets" 
+  element={<Tweets isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user} />} 
+/>
+
+<Route path="/compose/tweet" element={<ComposeTweet/>}/>
         
         {/* The auth pages */}
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />

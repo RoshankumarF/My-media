@@ -63,7 +63,7 @@ useEffect(  ()=>{
           {/* THE TWEET BUTTON (Only visible when logged in) */}
           {isLoggedIn && (
             <div className="p-4 border-t border-gray-200 mt-auto">
-              <Link to="/compose/tweet">
+              <Link to="/tweets">
                 <Button variant="primary" className="w-full py-3 text-lg shadow-md hover:shadow-lg transition-shadow">
                   Tweet
                 </Button>
