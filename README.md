@@ -5,6 +5,7 @@ A full-stack social media platform inspired by **YouTube and Twitter**, built to
 My-Media allows users to create accounts, upload and watch videos, interact through comments and subscriptions, create user profiles, and publish tweet-style posts.
 
 > 🚧 **Project Status:** Initial Version (v1)
+> working live demo  https://my-media-pi.vercel.app/
 
 ## 🤖 AI Assistance & Credits
 
