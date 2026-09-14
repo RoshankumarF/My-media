@@ -27,15 +27,12 @@ function App() {
       try {
       const response=   await api.get("/v1/user/current-user")
         setIsLoggedIn(true)
-           console.log("🔥 CURRENT USER RESPONSE:", response.data);
-            console.log("🔥 CURRENT USER DATA:", response.data.data);
+            
 
 
          setUser(response.data.data)
      } catch (error) {
-           console.log("❌ CURRENT USER ERROR:", error);
-            console.log("❌ STATUS:", error.response?.status);
-            console.log("❌ RESPONSE:", error.response?.data);
+            
        setIsLoggedIn(false)
        setUser(null)
         
@@ -56,7 +53,7 @@ function App() {
   return (
     <>
    <BrowserRouter>
-      {/* Routes acts as a switch, rendering only the matching path */}
+      
       <Routes>
         
         {/* The main feed */}

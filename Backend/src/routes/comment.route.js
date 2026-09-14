@@ -6,6 +6,7 @@ import { addComment, getVideoComments } from "../controllers/comment.controller.
 const router =Router()
 
  
+ 
 
 router.route("/add-comment/:videoId").post(verifyJWT,addComment)
 router.route("/get-comment/:videoId").get(getVideoComments)
