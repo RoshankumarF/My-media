@@ -19,12 +19,13 @@ import ComposeTweet from './pages/ComposeTweet';
 function App() {
 
   const [isLoggedIn ,setIsLoggedIn]=useState(false)
-  const [user,setUser]=useState(null);
+  const [user,setUser]=useState(null)
+  const [authLoading, setAuthLoading] = useState(true)
 
   useEffect(()=>{
      const Checkauth=async()=>{
       try {
-      const response=   await api.get("/v1/user/current-user");
+      const response=   await api.get("/v1/user/current-user")
         setIsLoggedIn(true)
 
          setUser(response.data.data)
@@ -32,11 +33,17 @@ function App() {
        setIsLoggedIn(false)
        setUser(null)
         
-     }
+     } finally {
+            setAuthLoading(false)
+        }
      }
     Checkauth();
 
   },[])
+
+  if (authLoading) {
+    return <div>Loading...</div>
+}
  
 
    
