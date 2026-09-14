@@ -31,7 +31,7 @@ export default function Header({ isLoggedIn ,setIsLoggedIn ,user }) {
       <div className="hidden md:flex flex-1 max-w-xl mx-8">
         <input 
           type="text" 
-          placeholder="Search videos or tweets..." 
+          placeholder="Search videos ..." 
           className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-l-full focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
         />
         <button className="px-6 py-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r-full hover:bg-gray-200">

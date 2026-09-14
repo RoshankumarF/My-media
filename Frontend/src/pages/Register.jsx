@@ -68,14 +68,14 @@ export default function Register() {
                 label="Full Name" 
                 name="fullName"
                 type="text" 
-                placeholder="John Doe" 
+                placeholder="Full Name" 
                 required 
               />
               <Input 
                 label="Username" 
                 name="username"
                 type="text" 
-                placeholder="johndoe123" 
+                placeholder="user123" 
                 required
               />
             </div>

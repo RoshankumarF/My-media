@@ -50,7 +50,7 @@ export default function Tweets({ isLoggedIn, setIsLoggedIn, user }) {
           <div className="text-center text-gray-500 py-10">Loading tweets...</div>
         ) : tweets.length === 0 ? (
           <div className="text-center text-gray-500 py-10 bg-white rounded-2xl border border-gray-200">
-            No tweets yet. Be the first to post!
+           please login first to see the post
           </div>
         ) : (
           <div className="space-y-4">

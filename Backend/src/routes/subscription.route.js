@@ -5,7 +5,7 @@ import { toggleSubscription,checkSubscription, getSubscriberCount } from "../con
 
 const router=Router()
 
-router.use(verifyJWT)
+ 
 
  
 

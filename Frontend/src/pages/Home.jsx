@@ -13,6 +13,11 @@ export default function Home({isLoggedIn,setIsLoggedIn,user}) {
 
 useEffect(  ()=>{
 
+  if(!isLoggedIn){
+ alert("Please login to use all features")
+  }
+  
+
   const getVideos= async ()=>{
 
     try {
@@ -51,7 +56,7 @@ useEffect(  ()=>{
         <aside className="w-64 border-r border-gray-200 bg-white hidden md:flex flex-col overflow-y-auto shrink-0">
           <nav className="p-4 space-y-1 flex-1">
             <Link to="/" className="block px-4 py-3 bg-gray-100 text-red-600 rounded-xl font-bold">🏠 Home</Link>
-            <Link to="/videos" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">📺 Videos</Link>
+            <Link to="/" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">📺 Videos</Link>
             <Link to="/tweets" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">💬 Tweets</Link>
             
            
