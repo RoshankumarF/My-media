@@ -23,11 +23,13 @@ export default function Login({setIsLoggedIn}) {
    
     const response = await api.post("/v1/user/login",loginCredentials)
 
+
     
 
      
 
     setIsLoggedIn(true);
+    console.log("login success",response)
 
     
     navigate('/');
