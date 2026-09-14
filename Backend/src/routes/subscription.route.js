@@ -5,12 +5,11 @@ import { toggleSubscription,checkSubscription, getSubscriberCount } from "../con
 
 const router=Router()
 
+ 
 
-router.use(verifyJWT)
-
-router.route("/toggle-subscription/:channelId").post(toggleSubscription)
+router.route("/toggle-subscription/:channelId").post(verifyJWT,toggleSubscription)
 router.route("/check-subscription/:channelId")
-    .get(checkSubscription);
+    .get(verifyJWT,checkSubscription);
 
 router.route("/subscriber-count/:channelId").get(getSubscriberCount)
 

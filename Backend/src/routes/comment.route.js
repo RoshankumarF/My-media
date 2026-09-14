@@ -5,9 +5,9 @@ import { addComment, getVideoComments } from "../controllers/comment.controller.
 
 const router =Router()
 
-router.use(verifyJWT)
+ 
 
-router.route("/add-comment/:videoId").post(addComment)
+router.route("/add-comment/:videoId").post(verifyJWT,addComment)
 router.route("/get-comment/:videoId").get(getVideoComments)
 
 export default  router
