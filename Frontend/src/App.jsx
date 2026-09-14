@@ -70,7 +70,7 @@ function App() {
 <Route path="/compose/tweet" element={<ComposeTweet/>}/>
         
         {/* The auth pages */}
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/upload" element ={<UploadVideo/>}/>
 

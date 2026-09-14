@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer';
 import {useNavigate} from 'react-router-dom'
 import {api} from "../api.js"
 import { useState } from 'react';
-export default function Login({setIsLoggedIn}) {
+export default function Login({setIsLoggedIn,setUser}) {
   const navigate=useNavigate()
 
   const [isLoading,setLoading]=useState(false)
@@ -30,6 +30,9 @@ export default function Login({setIsLoggedIn}) {
 
     setIsLoggedIn(true);
     console.log("login success",response)
+    const loggedInUser = response.data.data.user;
+
+      setUser(loggedInUser);
 
     
     navigate('/');
