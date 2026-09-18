@@ -16,6 +16,7 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
   const [isLiked,setIsLiked]=useState(false);
 
   const [subscriberCount,setSubscriberCount] =useState(0)
+  const [likeCount,setlikeCount]=useState(0)
 
     useEffect(() => {
         const getVideo = async () => {
@@ -91,20 +92,46 @@ useEffect(() => {
 }, [video])
 
 
+
+ useEffect(()=>{
+  
+  const checkLiked =async()=>{
+    if(!user){
+      alert("please login to like")
+    }
+   try {
+     const response = await api.get(`/v1/like/check-like/${videoId}`)
+     setIsLiked(response.data.data.isLiked)
+   } catch (error) {
+    console.log("failed to check liked",error)
+    
+   }
+  }
+
+  checkLiked()
+  
+ },[])
+
+
 useEffect(()=>{
-  const checkLike =async()=>{
+  const getlikeCount =async()=>{
     try {
 
-      const response = await  api.post(`/v1/like/check/video-like/${videoId}`)
-      setIsLiked(response.data.data.isLiked)
+      const response = await  api.get(`/v1/like/get-likeCount/${videoId}`)
+
+      setlikeCount(response.data.data.likeCount)
+      
 
       
     } catch (error) {
-      console.log("There is error in checkLike",error)
+      console.log("There is error in CountLike",error)
       
     }
   }
-},[])
+
+
+  getlikeCount()
+},[video])
 
     if (!video) {
         return <div>Loading...</div>;
@@ -237,7 +264,7 @@ useEffect(()=>{
                 onClick={handlelike}
                 disabled={isSubmitting}
                 className="flex items-center gap-2 text-sm py-1.5">
-                  👍 {isLiked ? "Liked" : "Like"}
+                  👍 {isLiked ? "Liked" : "Like"} {likeCount}
                 </Button>
                 <Button variant="secondary" className="flex items-center gap-2 text-sm py-1.5">
                    ↪️ Share

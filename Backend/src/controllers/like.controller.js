@@ -44,6 +44,7 @@ if(like){
 })
 
 const getLikeCountVideo =asyncHandler(async(req,res)=>{
+   
     const {videoId}=req.params
     if(!mongoose.Types.ObjectId.isValid(videoId)){
         throw new apiError(400,"Invalid videoID")
@@ -60,7 +61,27 @@ const getLikeCountVideo =asyncHandler(async(req,res)=>{
 
 })
 
+const checkLiked =asyncHandler(async(req,res)=>{
+    const {videoId}=req.params
+
+    if(!mongoose.Types.ObjectId.isValid(videoId)){
+        throw new apiError(400,"Invalid videoId")
+    }
+
+    const liked = await Like.findOne({
+        video:videoId,
+        likedBy:req.user._id
+    })
+
+    if(liked){
+        return res.status(200).json(new apiResponse(200,{isLiked:true},"user has liked it "))
+    }else{
+        return res.status(200).json(new apiResponse(200,{isLiked:false},"user didnot liked it "))
+    }
+})
+
 export {
     videoLikeToggle,
-     getLikeCountVideo
+     getLikeCountVideo,
+     checkLiked
 }
