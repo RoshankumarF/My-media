@@ -13,6 +13,7 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     const [video, setVideo] = useState(null);
     const [isSubscribed, setIsSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLiked,setisLiked]=useState(false);
 
   const [subscriberCount,setSubscriberCount] =useState(0)
 
@@ -194,7 +195,9 @@ useEffect(() => {
 </div>
 
               <div className="flex items-center gap-2">
-                <Button variant="secondary" className="flex items-center gap-2 text-sm py-1.5">
+                <Button variant="secondary" 
+                
+                className="flex items-center gap-2 text-sm py-1.5">
                   👍 Like
                 </Button>
                 <Button variant="secondary" className="flex items-center gap-2 text-sm py-1.5">
