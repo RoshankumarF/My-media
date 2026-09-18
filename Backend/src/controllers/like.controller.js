@@ -43,6 +43,24 @@ if(like){
 
 })
 
+const getLikeCountVideo =asyncHandler(async(req,res)=>{
+    const {videoId}=req.params
+    if(!mongoose.Types.ObjectId.isValid(videoId)){
+        throw new apiError(400,"Invalid videoID")
+    }
+
+    const Countlike=await Like.countDocuments({
+        video:videoId
+    })
+
+    return res.status(200).json(new apiResponse(200,{likeCount:Countlike},"like count fetched succesfully"))
+
+
+
+
+})
+
 export {
-    videoLikeToggle
+    videoLikeToggle,
+     getLikeCountVideo
 }
