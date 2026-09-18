@@ -6,11 +6,18 @@ import {asyncHandler} from "../utils/asyncHandler.js"
 
 
 const videoLikeToggle =asyncHandler(async(req,res)=>{
+
+ 
+   
 const {videoId}=req.params
+ 
+ 
+
 
 if(!mongoose.Types.ObjectId.isValid(videoId)){
-    throw new apiError("400","invalid video id ")
+    throw new apiError(400,"invalid video id ")
 }
+
  
 const like =await Like.findOne({
     video:videoId,
@@ -19,7 +26,7 @@ const like =await Like.findOne({
 
 if(like){
     await Like.findByIdAndDelete(like._id)
-     return res.status(200).json(new apiResponse(201,{isLiked:true},"UnLiked successfully"));
+     return res.status(200).json(new apiResponse(201,{isLiked:false},"UnLiked successfully"));
 
 }else{
    

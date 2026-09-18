@@ -29,7 +29,7 @@ export default function Login({setIsLoggedIn,setUser}) {
      
 
     setIsLoggedIn(true);
-    console.log("login success",response)
+    
     const loggedInUser = response.data.data.user;
 
       setUser(loggedInUser);

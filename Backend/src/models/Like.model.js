@@ -19,7 +19,7 @@ const likeSchema=new Schema({
         ref:"Comment"
     }
 
-},{timestamps})
+},{timestamps:true})
 
  
 

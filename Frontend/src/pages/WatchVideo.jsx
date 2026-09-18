@@ -154,7 +154,8 @@ useEffect(()=>{
 
     try {
       setIsSubmitting(true);
-      const response = await api.post(`/v1/like/video-like/:${videoId}`)
+     
+      const response = await api.post(`/v1/like/video-like/${videoId}`)
       setIsLiked(response.data.data.isLiked)
       
     } catch (error) {
