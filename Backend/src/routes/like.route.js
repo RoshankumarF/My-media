@@ -7,7 +7,7 @@ const router =Router()
 
 router.use(verifyJWT)
 
-router.route("/video-like").post(videoLikeToggle)
+router.route("/video-like/:videoId").post(videoLikeToggle)
 
 export default router
 

@@ -13,7 +13,7 @@ function WatchVideo({ isLoggedIn, setIsLoggedIn, user }) {
     const [video, setVideo] = useState(null);
     const [isSubscribed, setIsSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLiked,setisLiked]=useState(false);
+  const [isLiked,setIsLiked]=useState(false);
 
   const [subscriberCount,setSubscriberCount] =useState(0)
 
@@ -90,6 +90,22 @@ useEffect(() => {
     getSubscriberCount()
 }, [video])
 
+
+useEffect(()=>{
+  const checkLike =async()=>{
+    try {
+
+      const response = await  api.post(`/v1/like/check/video-like/${videoId}`)
+      setIsLiked(response.data.data.isLiked)
+
+      
+    } catch (error) {
+      console.log("There is error in checkLike",error)
+      
+    }
+  }
+},[])
+
     if (!video) {
         return <div>Loading...</div>;
     }
@@ -127,6 +143,27 @@ useEffect(() => {
       setIsSubmitting(false);
     }
   };
+
+  //Like function 
+
+  const handlelike=async ()=>{
+    if(!user){
+      alert("please log in to Like the video")
+      return
+    }
+
+    try {
+      setIsSubmitting(true);
+      const response = await api.post(`/v1/like/video-like/:${videoId}`)
+      setIsLiked(response.data.data.isLiked)
+      
+    } catch (error) {
+      console.log("Like failed",error)
+    }finally{
+      setIsSubmitting(false)
+    }
+
+  }
 
     return (
        <div className="min-h-screen flex flex-col bg-gray-50">
@@ -195,10 +232,11 @@ useEffect(() => {
 </div>
 
               <div className="flex items-center gap-2">
-                <Button variant="secondary" 
-                
+                <Button variant={isLiked ? "secondary" :"primary" }
+                onClick={handlelike}
+                disabled={isSubmitting}
                 className="flex items-center gap-2 text-sm py-1.5">
-                  👍 Like
+                  👍 {isLiked ? "Liked" : "Like"}
                 </Button>
                 <Button variant="secondary" className="flex items-center gap-2 text-sm py-1.5">
                    ↪️ Share
