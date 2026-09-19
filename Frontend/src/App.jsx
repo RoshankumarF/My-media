@@ -15,6 +15,7 @@ import WatchVideo from './pages/WatchVideo';
 import Profile from './pages/Profile';
 import Tweets from './pages/Tweets';
 import ComposeTweet from './pages/ComposeTweet';
+import WatchHistory from './pages/WatchHistory';
 
 function App() {
 
@@ -74,6 +75,8 @@ function App() {
         <Route path="/watch/:videoId" element={<WatchVideo  isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user}/>}/>
 
         <Route path="/profile/:userId" element={<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user}/>} />
+
+        <Route path="/history" element={<WatchHistory isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user}/> }/>
         
       </Routes>
     </BrowserRouter>

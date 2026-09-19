@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { registerUser,loginUser,logoutUser, getCurrentUser,getUserProfile } from "../controllers/user.controller.js";
+import { registerUser,loginUser,logoutUser, getCurrentUser,getUserProfile, getWatchHistory, addtoWatchHistory } from "../controllers/user.controller.js";
 
 import {verifyJWT} from "../middlewares/auth.middleware.js"
 
@@ -33,6 +33,10 @@ router.route("/logout").post(verifyJWT,logoutUser)
 router.route("/current-user").get(verifyJWT,getCurrentUser)
 
 router.route("/profile/:userId").get(getUserProfile);
+
+router.route("/get-watch-history/:userId").get(verifyJWT,getWatchHistory)
+
+router.route("/save-watch-history/:videoId").post(verifyJWT,addtoWatchHistory)
 
 
 export default router

@@ -207,10 +207,75 @@ const getUserProfile = asyncHandler(async (req, res) => {
     );
 });
 
+
+const getWatchHistory=asyncHandler(async(req,res)=>{
+    const {userId}=req.params
+
+    
+
+     if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new apiError(400, "Invalid user id");
+    }
+
+    const user =await User.findById(userId).populate({
+        path:"watchHistory",
+        populate :{
+            path:"owner",
+            select:"username avatar"
+        }
+    })
+
+      if (!user) {
+        throw new apiError(404, "User not found")
+    }
+
+    return res.status(200).json(
+        new apiResponse(
+            200,
+            user.watchHistory,
+            "Watch history fetched successfully"
+        )
+    )
+
+
+
+
+
+
+})
+
+
+const addtoWatchHistory =asyncHandler(async(req,res)=>{
+    const {videoId}=req.params
+
+    if(!mongoose.Types.ObjectId.isValid(videoId)){
+        throw new apiError(400,"invalid video ID")
+    }
+
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $addToSet :{
+                watchHistory :videoId
+            }
+        },
+        {
+            new :true
+        }
+    )
+
+     return res.status(200).json(
+        new apiResponse(200, {}, "Added to watch history")
+    );
+
+})
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     getCurrentUser,
-    getUserProfile
+    getUserProfile,
+    getWatchHistory,
+    addtoWatchHistory
 }
