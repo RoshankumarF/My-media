@@ -10,16 +10,16 @@ My-Media allows users to create accounts, upload and watch videos, interact thro
 > ## 📸 Screenshots
 
 ### Home
-![Home](./screenshots/home.png)
+![Home](./ScreenShots/home.png)
 
 ### Watch Video
-![Watch Video](./screenshots/watch-video.png)
+![Watch Video](./ScreenShots/watch-video.png)
 
 ### Profile
-![Profile](./screenshots/profile.png)
+![Profile](./ScreenShots/profile.png)
 
 ### Watch History
-![Watch History](./screenshots/watch-history.png)
+![Watch History](./ScreenShots/watch-history.png)
 
 ## 🤖 AI Assistance & Credits
 
