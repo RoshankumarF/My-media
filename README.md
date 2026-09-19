@@ -6,6 +6,20 @@ My-Media allows users to create accounts, upload and watch videos, interact thro
 
 > 🚧 **Project Status:** Initial Version (v1)
 > working live demo  https://my-media-pi.vercel.app/
+>
+> ## 📸 Screenshots
+
+### Home
+![Home](./screenshots/home.png)
+
+### Watch Video
+![Watch Video](./screenshots/watch-video.png)
+
+### Profile
+![Profile](./screenshots/profile.png)
+
+### Watch History
+![Watch History](./screenshots/watch-history.png)
 
 ## 🤖 AI Assistance & Credits
 
