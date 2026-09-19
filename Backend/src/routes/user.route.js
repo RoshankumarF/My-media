@@ -34,7 +34,7 @@ router.route("/current-user").get(verifyJWT,getCurrentUser)
 
 router.route("/profile/:userId").get(getUserProfile);
 
-router.route("/get-watch-history").get(verifyJWT,getWatchHistory)
+router.route("/get-watch-history/:userId").get(verifyJWT,getWatchHistory)
 
 router.route("/save-watch-history/:videoId").post(verifyJWT,addtoWatchHistory)
 

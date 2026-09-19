@@ -6,18 +6,22 @@ import Button from '../components/Button';
 
 export default function WatchHistory({ isLoggedIn, setIsLoggedIn, user }) {
   
-  const [history, setHistory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [history, setHistory] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+   
  
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         setIsLoading(true);
+
+        setError(null);
     
         
       
-        const response = await api.get('/v1/user/get-watch-history'
+        const response = await api.get(`/v1/user/get-watch-history/${user._id}`
         )
 
         setHistory(response.data.data);
@@ -26,7 +30,8 @@ export default function WatchHistory({ isLoggedIn, setIsLoggedIn, user }) {
         
         
       } catch (err) {
-        console.error("Failed to fetch watch history:", err);
+        console.error("Failed to fetch watch history:", err)
+        setError(err.response?.data?.message || "Could not load history.")
        
         setHistory([]);
       } finally {

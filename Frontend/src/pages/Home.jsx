@@ -63,6 +63,16 @@ useEffect(  ()=>{
             {isLoggedIn && user &&(
               
                <Link to={`/profile/${user._id}`}className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">👤 My Profile</Link>
+
+                 
+            )}
+             {isLoggedIn && user &&(
+              
+              <Link to="/history" className="block px-4 py-3 hover:bg-gray-50 rounded-xl font-medium text-gray-700">
+                 ⏱️ History
+                  </Link>
+
+                 
             )}
           </nav>
  

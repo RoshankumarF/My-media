@@ -209,7 +209,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 
 const getWatchHistory=asyncHandler(async(req,res)=>{
-    const {userId}=req.user._id
+    const {userId}=req.params
+
+    
 
      if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw new apiError(400, "Invalid user id");

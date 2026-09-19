@@ -133,6 +133,22 @@ useEffect(()=>{
   getlikeCount()
 },[video])
 
+useEffect(()=>{
+  const saveHistory =async()=>{
+    try {
+
+      await await api.post(`/v1/user/save-watch-history/${videoId}`);
+      
+    } catch (error) {
+      console.log("there is error while saving history ",error)
+      
+    }
+  }
+
+  saveHistory()
+
+},[video])
+
     if (!video) {
         return <div>Loading...</div>;
     }
