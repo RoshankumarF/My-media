@@ -207,10 +207,46 @@ const getUserProfile = asyncHandler(async (req, res) => {
     );
 });
 
+
+const getWatchHistory=asyncHandler(async(req,res)=>{
+    const {userId}=req.user._id
+
+     if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new apiError(400, "Invalid user id");
+    }
+
+    const user =await User.findById(userId).populate({
+        path:"watchHistory",
+        populate :{
+            path:"owner",
+            select:"username avatar"
+        }
+    })
+
+      if (!user) {
+        throw new apiError(404, "User not found")
+    }
+
+    return res.status(200).json(
+        new apiResponse(
+            200,
+            user.watchHistory,
+            "Watch history fetched successfully"
+        )
+    )
+
+
+
+
+
+
+})
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     getCurrentUser,
-    getUserProfile
+    getUserProfile,
+    getWatchHistory
 }
