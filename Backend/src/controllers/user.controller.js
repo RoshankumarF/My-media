@@ -274,5 +274,6 @@ export {
     logoutUser,
     getCurrentUser,
     getUserProfile,
-    getWatchHistory
+    getWatchHistory,
+    addtoWatchHistory
 }
