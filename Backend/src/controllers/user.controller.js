@@ -242,6 +242,32 @@ const getWatchHistory=asyncHandler(async(req,res)=>{
 
 })
 
+
+const addtoWatchHistory =asyncHandler(async(req,res)=>{
+    const {videoId}=req.params
+
+    if(!mongoose.Types.ObjectId.isValid(videoId)){
+        throw new apiError(400,"invalid video ID")
+    }
+
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $addToSet :{
+                watchHistory :videoId
+            }
+        },
+        {
+            new :true
+        }
+    )
+
+     return res.status(200).json(
+        new apiResponse(200, {}, "Added to watch history")
+    );
+
+})
+
 export {
     registerUser,
     loginUser,
